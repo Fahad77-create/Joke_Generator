@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Jokes_Generator</title>
+</head>
+<body style="background-image: url(./assets/imageedit_3_8745971078.jpg);">
+    <div class="container">
+        <h3>Leave stress, Have a laugh</h3>
+        <div id="Joke" class="joke">
+            
+        </div>
+        <button id="button" class="btn">Get Another Joke</button>
+    </div>
+
+</body>
+<script>
+
+const Joke=document.querySelector("#Joke")
+const btn=document.querySelector("#button")
+const h3=document.querySelector("h3")
+
+// For button
+btn.addEventListener('click',getJoke)
+getJoke();
+async function getJoke(){
+    try{
+         let api=await fetch('https://icanhazdadjoke.com/', {
+            headers:{
+             'Accept':'application/json'
+            }
+         })
+
+         const apiJson=await api.json();
+         Joke.innerHTML=apiJson.joke;
+    }
+    // If API crashed
+    catch(error){
+         h3.textContent="Sorry, Api crashed :("
+    }
+
+}
+</script>
+</html>
